@@ -8,7 +8,7 @@
 function get_unifi_config() {
     return [
         "controlleruser"     => 'uapradio',
-        "controllerpassword" => 'HelloKitty_1',
+        "controllerpassword" => 'PASSWORD_HERE',
         "controllerurl"      => 'https://192.168.1.1:443',
         "controllerversion"  => '4.0.0',
         "debug"              => false
