@@ -14,7 +14,9 @@ fclose($fp);
 
 // Batch disable.  Nite!
 foreach($devices as $d) {
+    echo("Disabling AP $d: ");
     manage_device("disable", $d);
+    print("DONE\n");
 }
 
 ?>

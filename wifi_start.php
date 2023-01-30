@@ -12,10 +12,11 @@ while(!feof($fp)) {
 }
 fclose($fp);
 
-
 // Batch enable.  Good morning!
 foreach($devices as $d) {
+    echo("Enabling AP $d: ");
     manage_device("enable", $d);
+    print("DONE\n");
 }
 
 ?>
