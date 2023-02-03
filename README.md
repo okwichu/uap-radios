@@ -53,7 +53,7 @@ done
 ${curl_cmd} $baseurl/logout
 ```
 
-Get AP Status
+Discover APs
 ```
 #!/bin/bash
 
