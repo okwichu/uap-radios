@@ -32,3 +32,89 @@ Get Device Details
 ```
 ➜ curl --cookie cookie.txt https://192.168.1.1:443/proxy/network/api/s/default/stat/device/68:d7:9a:76:6c:b3 --insecure | jq
 ```
+
+
+Disable AP
+```
+#!/bin/bash
+
+#Put here all of the AP IDs
+# DeviceID="${DeviceID} xxxxxxxxxxxxxxxxxxxx" DeviceID="${DeviceID} zzzzzzzzzzzzzzzzzzzz"
+#user name of admin account on controller username=user
+#password of admin account on controller password=pass
+#controller IP address and port baseurl=https://192.168.1.2:8443
+#leave as default site=default cookie=/tmp/cookie
+
+curl_cmd="curl -v --silent --cookie ${cookie} --cookie-jar ${cookie} --insecure"
+${curl_cmd} --data "{\"username\":\"$username\", \"password\":\"$password\"}" $baseurl/api/login
+for device in ${DeviceID}; do
+    ${curl_cmd} -X PUT -H "Content-Type: application/json" --data "json={\"disabled\":true}" $baseurl/api/s/$site/rest/device/${device}
+done
+${curl_cmd} $baseurl/logout
+```
+
+Get AP Status
+```
+#!/bin/bash
+
+#Your Access Point MAC address below MacAddress="${MacAddress} xx:xx:xx:xx:xx:xx"
+#user name of admin account on controller username=user
+#password of admin account on controller password=pass
+#leave as default
+
+
+# Pass in UNIFI_USER as an env varible
+# Pass in UNIFI_PASSWORD as an env variable
+# Pass in mac address on the command line
+
+
+UNIFI_USER=$UNIFI_USERNAME
+UNIFI_PASS=$UNIFI_PASSWORD
+UNIFI_BASE_URL="https://192.168.1.1:443"
+UNIFI_SITE="default"
+
+UNIFI_MAC="68:d7:9a:76:6c:b3"
+
+
+NOW=`date`
+COOKIE=`md5 -q -s "$DATE"`
+
+
+# Login to the controller
+CURL_CMD="curl -X POST --verbose --cookie /tmp/unifi-cookie-$COOKIE --cookie-jar /tmp/unifi-cookie-$COOKIE --insecure "
+${CURL_CMD} --data "{\"username\":\"$UNIFI_USER\", \"password\":\"$UNIFI_PASS\"}" $UNIFI_BASE_URL/api/auth/login
+
+
+exit
+
+# Discover APs
+for mac in ${UNIFI_MAC}; do
+    echo
+    echo "************************* Processing MAC $mac"
+    echo
+
+    ${CURL_CMD} $UNIFI_BASE_URL/api/s/$UNIFI_SITE/stat/device/${mac}
+done
+
+# Close the controller session
+${CURL_CMD} $UNIFI_BASE_URL/logout
+```
+
+Enable AP
+```
+#!/bin/bash
+#Put here all of the AP IDs DeviceID="${DeviceID} xxxxxxxxxxxxxxxxxxxxxxx"DeviceID="${DeviceID} zzzzzzzzzzzzzzzzzzzzzz"
+#user name of admin account on controller username=user
+#password of admin account on controller password=pass
+#controller IP address and port baseurl=https://192.168.1.2:8443
+#leave as default site=default cookie=/tmp/cookie
+
+curl_cmd="curl -v --silent --cookie ${cookie} --cookie-jar ${cookie} --insecure"
+${curl_cmd} --data "{\"username\":\"$username\", \"password\":\"$password\"}" $baseurl/api/login
+for device in ${DeviceID}; do
+${curl_cmd} -X PUT -H "Content-Type: application/json" --data "json={\"disabled\":false}" $baseurl/api/s/$site/rest/device/${device}
+
+done
+${curl_cmd} $baseurl/logout
+
+```
