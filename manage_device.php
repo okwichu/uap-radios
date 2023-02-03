@@ -45,11 +45,11 @@ function manage_device($device_id, $operation) {
 }
 
 // This runs when we're invoked directly from the CLI
-if (count($argv) != 3) {
-    print("Usage: manage_device.php device_id (enable|disable)");
-    return;
-}
+// if (count($argv) != 3) {
+//     print("Usage: manage_device.php device_id (enable|disable)");
+//     return;
+// }
 
-$device_id = $argv[1];
-$operation = $argv[2];
-manage_device($device_id, $operation);
+// $device_id = $argv[1];
+// $operation = $argv[2];
+// manage_device($device_id, $operation);

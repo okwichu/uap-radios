@@ -11,12 +11,14 @@ while(!feof($fp)) {
     array_push($devices, $data[0]);
 }
 fclose($fp);
+array_filter($devices);
 
 // Batch enable.  Good morning!
+print("\n");
 foreach($devices as $d) {
     echo("Enabling AP $d: ");
-    manage_device("enable", $d);
-    print("DONE\n");
+    manage_device($d, "enable");
+    print("\n");
 }
 
 ?>

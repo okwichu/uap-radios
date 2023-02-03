@@ -11,12 +11,14 @@ while(!feof($fp)) {
     array_push($devices, $data[0]);
 }
 fclose($fp);
+array_filter($devices);
 
 // Batch disable.  Nite!
+print("\n");
 foreach($devices as $d) {
     echo("Disabling AP $d: ");
-    manage_device("disable", $d);
-    print("DONE\n");
+     manage_device($d, "disable");
+    print("\n");
 }
 
 ?>
