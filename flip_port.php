@@ -2,7 +2,9 @@
 
 /**
  * Device USW-Ethan-Desk has ports 2-5 set to VLAN 2 (Kidtopia-Network) whenever this is run.
+ * Working off adapting port disable example https://github.com/Art-of-WiFi/UniFi-API-client/blob/master/examples/disable_switch_port.php
  * 
+ * THIS DOES NOT FUNCTION YET
  */
 
 require_once 'vendor/autoload.php';
